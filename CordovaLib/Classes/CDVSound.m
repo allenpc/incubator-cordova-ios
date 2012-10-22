@@ -530,8 +530,19 @@
 
 - (void)onMemoryWarning
 {
-    [[self soundCache] removeAllObjects];
-    [self setSoundCache:nil];
+    // Only clear out sounds that aren't playing
+    for (NSString *mediaId in [self soundCache]) {
+        CDVAudioFile* audioFile = [[self soundCache] objectForKey: mediaId];
+        if (!(audioFile.player && [audioFile.player isPlaying])) {
+            [soundCache removeObjectForKey: mediaId];
+        }
+    }
+    
+    // If we ended up removing everything from the cache, nil out the cache entirely
+    if ([[self soundCache] count] == 0) {
+        [self setSoundCache: nil];
+    }
+    
     [self setAvSession:nil];
 
     [super onMemoryWarning];
