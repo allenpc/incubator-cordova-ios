@@ -1,6 +1,6 @@
-// commit 98d190ad98ec48f4f06c61286faee99c0eb000ed
+// commit 02b91c5313ff37d74a58f71775170afd360f4a1f
 
-// File generated at :: Mon Oct 15 2012 12:53:57 GMT-0700 (PDT)
+// File generated at :: Wed Oct 31 2012 14:34:26 GMT-0700 (PDT)
 
 /*
  Licensed to the Apache Software Foundation (ASF) under one
@@ -695,7 +695,6 @@ module.exports = {
         return ( CommandProxyMap[service] ? CommandProxyMap[service][action] : null );
     }
 };
-
 });
 
 // file: lib/common/common.js
@@ -2751,7 +2750,7 @@ FileTransfer.prototype.download = function(source, target, successCallback, erro
         errorCallback(error);
     };
 
-    exec(win, errorCallback, 'FileTransfer', 'download', [source, target, trustAllHosts, this._id]);
+    exec(win, fail, 'FileTransfer', 'download', [source, target, trustAllHosts, this._id]);
 };
 
 /**
@@ -5921,8 +5920,8 @@ utils.extend = (function() {
  * Alerts a message in any available way: alert or console.log.
  */
 utils.alert = function(msg) {
-    if (alert) {
-        alert(msg);
+    if (window.alert) {
+        window.alert(msg);
     } else if (console && console.log) {
         console.log(msg);
     }
