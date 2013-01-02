@@ -531,10 +531,10 @@
 - (void)onMemoryWarning
 {
     // Only clear out sounds that aren't playing
-    for (NSString *mediaId in [self soundCache]) {
+    for (NSString *mediaId in [[self soundCache] allKeys]) {
         CDVAudioFile* audioFile = [[self soundCache] objectForKey: mediaId];
         if (!(audioFile.player && [audioFile.player isPlaying])) {
-            [soundCache removeObjectForKey: mediaId];
+            [[self soundCache] removeObjectForKey: mediaId];
         }
     }
     
